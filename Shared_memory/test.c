@@ -2,7 +2,6 @@
 #include <string.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
-#include <string.h>
 #include <unistd.h>
 
 #define KEY_NUM 600601
