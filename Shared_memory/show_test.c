@@ -3,7 +3,7 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 
-#define KEY_NUM 9527
+#define KEY_NUM 123
 #define MEM_SIZE 1024
 
 int main(void)
