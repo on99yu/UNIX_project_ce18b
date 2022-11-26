@@ -3,6 +3,11 @@
         "stdio.h": "c",
         "string.h": "c",
         "ipc.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "stdlib.h": "c",
+        "sem.h": "c",
+        "signal.h": "c",
+        "shm.h": "c",
+        "types.h": "c"
     }
 }
