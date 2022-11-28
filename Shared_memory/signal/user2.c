@@ -51,7 +51,7 @@ int main(){
 
 void handler(int signum){
     if(signum == SIGUSR2){
-        printf("Received From User1");
+        printf("Received From User1 :");
         puts(shmptr->buff);
     }
 }
