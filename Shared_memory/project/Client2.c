@@ -8,7 +8,7 @@
 #include <signal.h>
 
 
-#define KEY_NUM 60061
+#define KEY_NUM 60063
 
 // 끝말잇기 구조체
 struct shiritori {

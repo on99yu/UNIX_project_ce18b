@@ -8,7 +8,7 @@
 #include <signal.h>
 #include <time.h>
 
-#define KEY_NUM 60061
+#define KEY_NUM 60063
 
 // 끝말잇기 구조체
 struct shiritori {
@@ -16,7 +16,6 @@ struct shiritori {
     char Lastword[50];
     int flag, server_pid, client1_pid, client2_pid;
 };
-
 // 구조체 참조 포인터 생성
 struct shiritori* shm_ptr;
 
@@ -62,6 +61,7 @@ int main()
     pthread_join(start,NULL);
     printf("========================================\n");
     printf("클라1 로부터의 응답 대기중 ...\n");
+
     shm_ptr->flag = 1;
      // 반복문 필요 구간
     while(shm_ptr->flag){
@@ -97,57 +97,46 @@ void FromClient1(int signum){
     if(signum == SIGUSR1){
         pthread_mutex_lock(&mutex);
         char *word = (char*)shm_ptr->Recentword;
-        char FirstWord[3] = {word[0],word[1],word[2]};
-        char *LastWord = lastword((char*)shm_ptr->Lastword); 
-        if(strcmp(FirstWord, LastWord)==0){
-            printf("========================================\n");
-            printf("마지막 단어 : %s\n", (char*)shm_ptr->Lastword);
-            printf("클라이언트1의 단어 : %s",(char*)shm_ptr->Recentword);
-            snprintf((char*)shm_ptr->Lastword, sizeof(shm_ptr->Lastword),"%s",(char*)shm_ptr->Recentword);
-            printf("========================================\n");
-            printf("클라2 로부터의 응답 대기중 ...\n");
-        }else{
-            printf("클라이언트2의 승리\n");
-            shm_ptr->flag = 0;
-        }
+        // char FirstWord[3] = {word[0],word[1],word[2]};
+        // char *LastWord = lastword((char*)shm_ptr->Lastword);
+        // printf("%s",lastword((char*)shm_ptr->Lastword));
+        // printf("마지막 단어 끝문자 : %s\n",LastWord);
+        // printf("최근 단어 첫문자 %s\n",FirstWord);
+        printf("========================================\n");
+        printf("마지막 단어 : %s\n", (char*)shm_ptr->Lastword);
+        printf("클라이언트1의 단어 : %s",(char*)shm_ptr->Recentword);
+        snprintf((char*)shm_ptr->Lastword, sizeof(shm_ptr->Lastword),"%s",(char*)shm_ptr->Recentword);
+        printf("========================================\n");
+        printf("클라2 로부터의 응답 대기중 ...\n");
         pthread_mutex_unlock(&mutex);
     }
 }
 // 클라이언트2로부터 시그널이 왔을때
 void FromClient2(int signum){
     if(signum == SIGUSR2){
-        pthread_
         pthread_mutex_lock(&mutex);
         char *word = (char*)shm_ptr->Recentword;
-        char FirstWord[3] = {word[0],word[1],word[2]};
-        char *LastWord = lastword((char*)shm_ptr->Lastword);
-        printf("마지막 단어 끝문자 : %s\n",LastWord);
-        printf("최근 단어 첫문자 %s\n",FirstWord);
-        if(strcmp(FirstWord, LastWord)==0){
-            printf("========================================\n");
-            printf("마지막 단어 : %s\n", (char*)shm_ptr->Lastword);
-            printf("클라이언트2의 단어 : %s",(char*)shm_ptr->Recentword);
-            snprintf((char*)shm_ptr->Lastword, sizeof(shm_ptr->Lastword),"%s",(char*)shm_ptr->Recentword);
-            printf("========================================\n");
-            printf("클라1 로부터의 응답 대기중 ...\n");
-        }else{
-            printf("클라이언트1의 승리\n");
-            shm_ptr->flag = 0;
-        }
+        // char FirstWord[3] = {word[0],word[1],word[2]};
+        // char *LastWord = lastword((char*)shm_ptr->Lastword);
+        // printf("%s",lastword((char*)shm_ptr->Lastword));
+        // printf("마지막 단어 끝문자 : %s\n",LastWord);
+        // printf("최근 단어 첫문자 %s\n",FirstWord);
+        printf("========================================\n");
+        printf("마지막 단어 : %s\n", (char*)shm_ptr->Lastword);
+        printf("클라이언트2의 단어 : %s",(char*)shm_ptr->Recentword);
+        snprintf((char*)shm_ptr->Lastword, sizeof(shm_ptr->Lastword),"%s",(char*)shm_ptr->Recentword);
+        printf("========================================\n");
+        printf("클라1 로부터의 응답 대기중 ...\n");
         pthread_mutex_unlock(&mutex);
     }
 }
 
-char *lastword(char *word){
-    int i = 0;
-    char temp[3];
-    char *last;
-    for(i=0; i < sizeof(word)+2 ; i++){
-        if ( word[i] == '\0'){
-             char str[3] = {word[i-3], word[i-2],word[i-1]};
-             printf("%c%c%c",word[i-3], word[i-2],word[i-1]);
-             last = strcpy(temp,str);
-        }
-    }
-    return last;
-}
+// char *lastword(char *word){
+//     int i = 0;
+//     for(i=0; i < sizeof(word)+2 ; i++){
+//         if ( word[i] == '\0'){
+//             char str[3] = {word[i-3], word[i-2],word[i-1]};
+//             snprintf((char*)shm_ptr->Lastchar,sizeof(shm_ptr->Lastchar),"%s",str);
+//         }
+//     }
+// }
