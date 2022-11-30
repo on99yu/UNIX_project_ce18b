@@ -12,7 +12,7 @@
 
 // 끝말잇기 구조체
 struct shiritori {
-    char word[50];
+    char Recentword[50];
     char Lastword[50];
     int flag, server_pid, client1_pid, client2_pid;
 };
@@ -55,7 +55,7 @@ int main()
     printf("========================================\n");
     printf("클라1 : 끝말잇기 준비완료\n");
     printf("========================================\n");
-    printf("랜덤 제시어 :  %s\n", (char*)shm_ptr->word);
+    printf("랜덤 제시어 :  %s\n", (char*)shm_ptr->Recentword);
     // 반복문 필요 구간
     while(shm_ptr->flag){
         pthread_create(&Last, NULL, *Lastword, NULL);
@@ -89,7 +89,7 @@ void FromServer(int signum){
 void *InputWord(){
     pthread_mutex_lock(&mutex);
     printf("단어 입력 : ");
-    fgets(shm_ptr->word, 50, stdin);
+    fgets(shm_ptr->Recentword, 50, stdin);
     pthread_mutex_unlock(&mutex);
     return NULL;
 }

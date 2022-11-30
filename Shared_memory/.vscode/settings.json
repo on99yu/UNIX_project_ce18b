@@ -9,6 +9,7 @@
         "signal.h": "c",
         "shm.h": "c",
         "types.h": "c",
-        "pthread.h": "c"
+        "pthread.h": "c",
+        "time.h": "c"
     }
 }
