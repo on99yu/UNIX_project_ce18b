@@ -10,11 +10,12 @@
 
 #define KEY_NUM 60063
 
-// 끝말잇기 구조체
+// 공유메모리 끝말잇기 구조체
 struct shiritori {
-    char Recentword[50];
-    char Lastword[50];
-    int flag, server_pid, client1_pid, client2_pid;
+    char Recentword[50]; // 가장 최근단어
+    char Lastword[50]; // 마지막 입력된 단어
+    int flag, server_pid, client1_pid, client2_pid; 
+    // 서버 프로세스 ID와 클라이언트들의 프로세스 ID
 };
 // 구조체 참조 포인터 생성
 struct shiritori* shm_ptr;
@@ -97,11 +98,6 @@ void FromClient1(int signum){
     if(signum == SIGUSR1){
         pthread_mutex_lock(&mutex);
         char *word = (char*)shm_ptr->Recentword;
-        // char FirstWord[3] = {word[0],word[1],word[2]};
-        // char *LastWord = lastword((char*)shm_ptr->Lastword);
-        // printf("%s",lastword((char*)shm_ptr->Lastword));
-        // printf("마지막 단어 끝문자 : %s\n",LastWord);
-        // printf("최근 단어 첫문자 %s\n",FirstWord);
         printf("========================================\n");
         printf("마지막 단어 : %s\n", (char*)shm_ptr->Lastword);
         printf("클라이언트1의 단어 : %s",(char*)shm_ptr->Recentword);
