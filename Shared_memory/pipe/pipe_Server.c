@@ -6,9 +6,9 @@
 #include <string.h>
 #include <pthread.h>
 #include <unistd.h>
-#include <time.h>
 #include <stdbool.h>
-#include <unistd.h>
+#include <time.h>
+
 #define _POSIX_C_SOURCE 199309L
 #define BILLION 1000000000L;
 
@@ -100,7 +100,7 @@ int main()
     pthread_mutex_init(&mutexsum,NULL);
     char *check="성능 측정";
     char read_test[100];
-    struct timespec start, stop;
+    clock_t start, stop;
 
     char sendtext_cli[100];
     char win_cli[100];
@@ -122,17 +122,18 @@ int main()
     if(user_connect==2){
         printf("게임을 시작합니다\n");
     }  
-    printf("게임을 시작하기전 성능 측정");
+    printf("게임을 시작하기전 성능 측정\n");
     //타이머 시작
-    //clock_gettime(CLOCK_MONOTONIC,&start);
+    start = clock();
     write(fd1,check,sizeof(check));
     fd2=open("myfifo2",O_RDWR);
     read(fd2,read_test,sizeof(read_test));
-    printf("입력 완료 입력 값은 : %s",read_test);
+    printf("입력 완료 입력 값은 : %s\n",read_test);
     close(fd2);
-    //clock_gettime(CLOCK_MONOTONIC,&stop);
-    double accum =(stop.tv_sec-start.tv_sec)+(double)(stop.tv_nsec-start.tv_nsec)/(double)BILLION;
-    printf("걸리는 시간은 : %.9f\n",accum);
+    stop = clock();
+    // double accum = (stop.tv_sec- start.tv_sec) + (stop.tv_nsec - start.tv_nsec);
+    double accum  = stop - start;
+    printf("걸리는 시간은 : %f\n",accum / 1000);
     
     while(1){
         sleep(3);
