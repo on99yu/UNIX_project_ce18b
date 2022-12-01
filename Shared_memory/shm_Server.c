@@ -27,7 +27,7 @@ double refTime;
 
 // 쓰레드 선언 
 pthread_t start, client1, client2;
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t mutex;
 void *MakeStartWord();
 void FromClient1(int signum);
 void FromClient2(int signum);
