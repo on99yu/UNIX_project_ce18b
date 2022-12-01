@@ -10,6 +10,8 @@
         "shm.h": "c",
         "types.h": "c",
         "pthread.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "shm_client.h": "c",
+        "shmclient.h": "c"
     }
 }
